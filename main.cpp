@@ -9,7 +9,7 @@ private:
 public:
     //Fir() = default;
     Fir() { std::cout << "constr fără params fir\n"; }
-    Fir(int lungime_, std::string conector_) : lungime(lungime_),
+    Fir(int lungime_, const std::string& conector_) : lungime(lungime_),
        conector(conector_) {
         std::cout << "constr de inițializare fir\n";
         //this->lungime = lungime_;
@@ -31,13 +31,19 @@ public:
                   << " " << conector << "\n";
     }
 
-    int get_lungime() { return lungime; }
+    int get_lungime() const { return lungime; }
+
+    const std::string& getConector() const {
+        return conector;
+    }
+
     void scurteaza(int x) {
         if(x > 0)
             lungime -= x;
     }
     //void set_lungime(int lungime_) { lungime = lungime_; }
     //void set_conector(std::string conector_) { conector = conector_; }
+
 };
 
 class Echipament {
@@ -65,6 +71,25 @@ public:
 class Laborator {
     std::vector<Echipament> echipamente;
     std::string cod_sala;
+public:
+    Laborator(const std::vector<Echipament> &echipamente, const std::string &codSala) : echipamente(echipamente),
+                                                                                        cod_sala(codSala) {}
+
+    void setEchipamente(const std::vector<Echipament> &echipamente) {
+        Laborator::echipamente = echipamente;
+    }
+
+    void setCodSala(const std::string &codSala) {
+        cod_sala = codSala;
+    }
+
+    const std::vector<Echipament> &getEchipamente() const {
+        return echipamente;
+    }
+
+    const std::string &getCodSala() const {
+        return cod_sala;
+    }
 };
 
 /*
