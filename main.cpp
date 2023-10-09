@@ -62,6 +62,12 @@ public:
         //masa = other.masa;
         std::cout << "constructor de copiere echipament\n";
     }
+    Echipament& operator=(const Echipament& other) {
+        fir = other.fir;
+        masa = other.masa;
+        std::cout << "operator= echipament\n";
+        return *this;
+    }
     void monteaza() {
         fir.scurteaza(2);
         masa += 2.3;
@@ -127,7 +133,7 @@ int main() {
     std::cout << l1.getCodSala() << " " << "\n";
     l1.setCodSala("119!");
     l1.setEchipamente({e1, e2, e3});
-    std::cout << fir1.get_lungime() << "\n";
+    std::cout << fir1.get_lungime() << " " << fir1.getConector() << "\n";
     std::cout << fir2.get_lungime() << "\n";
     std::cout << fir3.get_lungime() << "\n";
     std::cout << fir4.get_lungime() << "\n";
