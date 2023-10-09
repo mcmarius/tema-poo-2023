@@ -72,20 +72,20 @@ class Laborator {
     std::vector<Echipament> echipamente;
     std::string cod_sala;
 public:
-    Laborator(const std::vector<Echipament> &echipamente, const std::string &codSala) : echipamente(echipamente),
-                                                                                        cod_sala(codSala) {}
+    Laborator(const std::vector<Echipament> &echipamente_, const std::string &codSala) : echipamente(echipamente_),
+                                                                                         cod_sala(codSala) {}
 
-    void setEchipamente(const std::vector<Echipament> &echipamente) {
-        Laborator::echipamente = echipamente;
+    void setEchipamente(const std::vector<Echipament> &echipamente_) {
+        Laborator::echipamente = echipamente_;
     }
 
     void setCodSala(const std::string &codSala) {
         cod_sala = codSala;
     }
 
-    const std::vector<Echipament> &getEchipamente() const {
-        return echipamente;
-    }
+//    const std::vector<Echipament> &getEchipamente() const {
+//        return echipamente;
+//    }
 
     const std::string &getCodSala() const {
         return cod_sala;
@@ -122,7 +122,11 @@ int main() {
     std::cout << "după e1\n";
     Echipament e2{e1}, e3 = e2;
     e1.monteaza();
-    // Laborator l1;
+    e3.monteaza();
+    Laborator l1{{e1, e2}, "119"};
+    std::cout << l1.getCodSala() << " " << "\n";
+    l1.setCodSala("119!");
+    l1.setEchipamente({e1, e2, e3});
     std::cout << fir1.get_lungime() << "\n";
     std::cout << fir2.get_lungime() << "\n";
     std::cout << fir3.get_lungime() << "\n";
