@@ -1,5 +1,28 @@
 #include <iostream>
+#include <string>
 #include <vector>
+
+class Fierastrau {
+    // decibeli
+    double combustibil{50};
+    int zgomot{70};
+public:
+    Fierastrau(int zgomot, double combustibil) : zgomot(zgomot), combustibil(combustibil) {}
+    Fierastrau() {
+        std::cout << "constr implicit fierastrau\n";
+    }
+    ~Fierastrau() {
+        std::cout << "destr fierastrau\n";
+    }
+    Fierastrau(const Fierastrau& other) {
+        std::cout << "cc fierastrau\n";
+    }
+    Fierastrau& operator=(const Fierastrau& other) {
+        std::cout << "op= fierastrau\n";
+        return *this;
+    }
+    friend std::ostream& operator<<(std::ostream& out, const Fierastrau& fierastrau);
+};
 
 class Fir {
 private:
@@ -43,7 +66,10 @@ public:
     }
     //void set_lungime(int lungime_) { lungime = lungime_; }
     //void set_conector(std::string conector_) { conector = conector_; }
-
+    friend std::ostream &operator<<(std::ostream &os, const Fir &fir) {
+        os << "lungime: " << fir.lungime << " conector: " << fir.conector;
+        return os;
+    }
 };
 
 class Echipament {
@@ -51,6 +77,13 @@ class Echipament {
     Fir fir;
     double masa;
 public:
+    friend std::ostream &operator<<(std::ostream &os, const Echipament &echipament) {
+        os << "fir: " << echipament.fir << " masa: " << echipament.masa;
+        return os;
+    }
+
+    Echipament(const Fir &fir_, double masa_) : fir(fir_), masa(masa_) {}
+
     explicit Echipament(const Fir& fir_) : fir(fir_), masa(1.2) {
         //fir = fir_;
         //fir.operator=(fir_);
@@ -78,6 +111,13 @@ class Laborator {
     std::vector<Echipament> echipamente;
     std::string cod_sala;
 public:
+    friend std::ostream &operator<<(std::ostream &os, const Laborator &laborator) {
+        os << "Echipamente:\n";
+        for(const auto& echipament : laborator.echipamente)
+            os << "\tEchipament: " << echipament << " cod_sala: " << laborator.cod_sala << "\n";
+        return os;
+    }
+
     Laborator(const std::vector<Echipament> &echipamente_, const std::string &codSala) : echipamente(echipamente_),
                                                                                          cod_sala(codSala) {}
 
@@ -114,7 +154,31 @@ void f(T1 t) {std::cout << "f t1\n";}
 void f(T2 t) {std::cout << "f t2\n";}
 */
 
+class Duba {
+    Fierastrau f;
+};
+
+//void operator>>(std::istream& in, Fierastrau& fierastrau) {}
+
+std::ostream& operator<<(std::ostream& out, const Fierastrau& fierastrau) {
+    out << "Fierastrau: {"
+        << fierastrau.zgomot << " " << fierastrau.combustibil
+        << "}\n";
+    return out;
+}
+
 int main() {
+    Fierastrau f1, f2{10, 20}, f3;
+    f1 = f2 = f3;
+    f1.operator=(f2.operator=(f3));
+    std::cout << f1 << f2;
+    // std::cout.operator<<(f1); // nu se poate
+    operator<<(operator<<(std::cout, f1), f2);
+//    return 0;
+    Duba duba;
+    std::vector<Duba> dube;
+    dube.push_back(duba);
+//    std::cout << duba;
     // f(T2{1});
     std::cout << "înainte de fir1, fir2\n";
     Fir fir1{2, "USB"}, fir2{3, "RJ45"};
@@ -133,6 +197,11 @@ int main() {
     std::cout << l1.getCodSala() << " " << "\n";
     l1.setCodSala("119!");
     l1.setEchipamente({e1, e2, e3});
+    std::cout << "-------------------------------------------\n\n";
+    std::cout << "-------------------------------------------\n\n";
+    std::cout << l1;
+    std::cout << "-------------------------------------------\n\n";
+    std::cout << "-------------------------------------------\n\n";
     std::cout << fir1.get_lungime() << " " << fir1.getConector() << "\n";
     std::cout << fir2.get_lungime() << "\n";
     std::cout << fir3.get_lungime() << "\n";
