@@ -3,9 +3,9 @@
 #include <vector>
 
 class Fierastrau {
+    int zgomot{70};
     // decibeli
     double combustibil{50};
-    int zgomot{70};
 public:
     Fierastrau(int zgomot, double combustibil) : zgomot(zgomot), combustibil(combustibil) {}
     Fierastrau() {
@@ -14,10 +14,12 @@ public:
     ~Fierastrau() {
         std::cout << "destr fierastrau\n";
     }
-    Fierastrau(const Fierastrau& other) {
+    Fierastrau(const Fierastrau& other) : zgomot(other.zgomot), combustibil(other.combustibil) {
         std::cout << "cc fierastrau\n";
     }
     Fierastrau& operator=(const Fierastrau& other) {
+        this->zgomot = other.zgomot;
+        this->combustibil = other.combustibil;
         std::cout << "op= fierastrau\n";
         return *this;
     }
@@ -168,12 +170,16 @@ std::ostream& operator<<(std::ostream& out, const Fierastrau& fierastrau) {
 }
 
 int main() {
-    Fierastrau f1, f2{10, 20}, f3;
-    f1 = f2 = f3;
-    f1.operator=(f2.operator=(f3));
-    std::cout << f1 << f2;
+    Fierastrau f1, f2{10, 20}, f3{100, 200};
+    Fierastrau f4{f2};
+    std::cout << f4;
+    f2 = f3;
+    std::cout << f2;
+//    f1 = f2 = f3;
+//    f1.operator=(f2.operator=(f3));
+//    std::cout << f1 << f2;
     // std::cout.operator<<(f1); // nu se poate
-    operator<<(operator<<(std::cout, f1), f2);
+//    operator<<(operator<<(std::cout, f1), f2);
 //    return 0;
     Duba duba;
     std::vector<Duba> dube;
