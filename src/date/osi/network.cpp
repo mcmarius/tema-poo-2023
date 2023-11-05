@@ -1,6 +1,8 @@
 #include "./network.h"
 #include <string>
 
+// "Copilu, ce e ala Datagram? Nu exista, dom student."
+
 NetworkLayer::NetworkLayer(DataLinkLayer& layer, const IPv4Address& _source, const IPv4Address& _destination, 
 uint8_t _ttl, IPProtocolType _proto): 
 DataLinkLayer(layer), source(_source), destination(_destination), TTL(_ttl), proto(_proto) {

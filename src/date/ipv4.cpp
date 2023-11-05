@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include "./ipv4.h"
 
+// "Nimeni nu iti da tie o adresa statica de clasa A, nu exista dom student"
 void IPv4Address::stringToOctets(const std::string& str) {
     std::istringstream iss(str);
     std::string token;
