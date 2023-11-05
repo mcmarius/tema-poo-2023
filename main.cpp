@@ -3,6 +3,7 @@
 #include <vector>
 #include "Fierastrau.h"
 #include "CanalDeComunicare.h"
+#include <webview.h>
 
 
 class Echipament {
@@ -100,6 +101,9 @@ int main() {
     Wireless wireless1;
     wireless1.get_lungime();
     // CanalDeComunicare &Ref = wireless1;  // nu merge cu moștenire private/protected
+    webview_t w = webview_create(0, NULL);
+    webview_set_title(w, "Basic Example");
+    webview_set_size(w, 480, 320, WEBVIEW_HINT_NONE);
     Fierastrau f1, f2{10, 20}, f3{100, 200};
     Fierastrau f4{f2};
     std::cout << f4;

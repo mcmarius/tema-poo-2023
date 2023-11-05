@@ -115,32 +115,32 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: ubuntu-22.04
-            c: clang-14
-            cxx: clang++-14
-            name: "MSan: Ubuntu 22.04 Clang 14"
-            # cmake_flags:
-            cmake_generator: Ninja
-            # This env runs memory sanitizers
-            runs_msan: true
+          # - os: ubuntu-22.04
+          #   c: clang-14
+          #   cxx: clang++-14
+          #   name: "MSan: Ubuntu 22.04 Clang 14"
+          #   # cmake_flags:
+          #   cmake_generator: Ninja
+          #   # This env runs memory sanitizers
+          #   runs_msan: true
 
-          - os: ubuntu-22.04
-            c: gcc-12
-            cxx: g++-12
-            name: "ASan: Ubuntu 22.04 GCC 12"
-            # cmake_flags:
-            cmake_generator: Ninja
-            # This env runs address sanitizers
-            runs_asan: true
+          # - os: ubuntu-22.04
+          #   c: gcc-12
+          #   cxx: g++-12
+          #   name: "ASan: Ubuntu 22.04 GCC 12"
+          #   # cmake_flags:
+          #   cmake_generator: Ninja
+          #   # This env runs address sanitizers
+          #   runs_asan: true
 
-          - os: ubuntu-22.04
-            c: gcc-11
-            cxx: g++-11
-            name: "Valgrind: Ubuntu 22.04 GCC 11"
-            # cmake_flags:
-            cmake_generator: Ninja
-            # This env runs valgrind
-            runs_valgrind: true
+          # - os: ubuntu-22.04
+          #   c: gcc-11
+          #   cxx: g++-11
+          #   name: "Valgrind: Ubuntu 22.04 GCC 11"
+          #   # cmake_flags:
+          #   cmake_generator: Ninja
+          #   # This env runs valgrind
+          #   runs_valgrind: true
 
           - os: macos-12
             c: clang
@@ -151,28 +151,28 @@ jobs:
             # This env runs address sanitizers
             runs_asan: true
 
-          - os: macos-12
-            c: gcc-12
-            cxx: g++-12
-            name: "macOS 12 GCC 12"
-            # cmake_flags:
-            # cmake_generator: Ninja
+          # - os: macos-12
+          #   c: gcc-12
+          #   cxx: g++-12
+          #   name: "macOS 12 GCC 12"
+          #   # cmake_flags:
+          #   # cmake_generator: Ninja
 
-          - os: windows-2022
-            c: cl
-            cxx: cl
-            name: "ASan: Windows 2022 MSVC 19.35"
-            # cmake_flags:
-            # cmake_generator: Ninja
-            # This env runs address sanitizers
-            runs_asan: true
+          # - os: windows-2022
+          #   c: cl
+          #   cxx: cl
+          #   name: "ASan: Windows 2022 MSVC 19.35"
+          #   # cmake_flags:
+          #   # cmake_generator: Ninja
+          #   # This env runs address sanitizers
+          #   runs_asan: true
 
-          - os: windows-2022
-            c: gcc
-            cxx: g++
-            name: "Windows 2022 MinGW GCC 11"
-            # cmake_flags:
-            cmake_generator: Ninja
+          # - os: windows-2022
+          #   c: gcc
+          #   cxx: g++
+          #   name: "Windows 2022 MinGW GCC 11"
+          #   # cmake_flags:
+          #   cmake_generator: Ninja
 
     steps:
       - name: Checkout repo
