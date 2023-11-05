@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 class Chestie {
     std::string s;
 public:

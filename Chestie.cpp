@@ -1,5 +1,4 @@
 #include "Chestie.h"
-#include <string>
 #include <sstream>
 
 /*std::string Chestie::f() const {
