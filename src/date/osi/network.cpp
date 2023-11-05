@@ -1,5 +1,6 @@
 #include "./network.h"
 #include <string>
+#include <ostream>
 
 // "Copilu, ce e ala Datagram? Nu exista, dom student."
 

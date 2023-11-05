@@ -1,4 +1,5 @@
 #include "./transport.h"
+#include <ostream.h>
 
 // "Copilu' filmele au 24 FPS din cauza la Coca Cola"
 
