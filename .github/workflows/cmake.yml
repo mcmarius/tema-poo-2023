@@ -196,7 +196,7 @@ jobs:
 
       # temp workaround, there is a bug in xcode linker
       - name: Setup Xcode version
-        if: runner.os == 'macOS' && startsWith(matrix.cxx, 'g++')
+        if: runner.os == 'macOS' # && startsWith(matrix.cxx, 'g++')
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '14.1'
