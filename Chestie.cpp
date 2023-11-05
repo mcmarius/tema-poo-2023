@@ -3,6 +3,8 @@
 #include <sstream>
 
 std::ostream& operator<<(std::ostream& os, const Chestie& chestie) {
-    os << chestie.s;
+    std::ostringstream oss;
+    oss << "abc";
+    os << oss.str();
     return os;
 }
