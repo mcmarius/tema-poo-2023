@@ -194,13 +194,6 @@ jobs:
           # the regex splits by / and keeps everything after / without the / character
           # echo "ZIP_NAME=$(echo "${GITHUB_REPOSITORY}_${{ env.BUILD_TYPE }}_${{ matrix.os }}_${{ matrix.cxx }}" | sed -E 's|.+/(.+)|\1|')" >> ${GITHUB_ENV}
 
-      # temp workaround, there is a bug in xcode linker
-      - name: Setup Xcode version
-        if: runner.os == 'macOS' # && startsWith(matrix.cxx, 'g++')
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '14.1'
-
       # Common Linux dependencies
       - name: Install Linux Dependencies
         if: runner.os == 'Linux'

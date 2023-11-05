@@ -131,6 +131,9 @@ target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ext/webview)
 # target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ${<SomeLib>_SOURCE_DIR}/include)
 # target_link_directories(${PROJECT_NAME} PRIVATE ${<SomeLib>_BINARY_DIR}/lib)
 # target_link_libraries(${PROJECT_NAME} <SomeLib>)
+if(APPLE)
+    target_link_libraries(${PROJECT_NAME} "-framework WebKit")
+endif()
 
 ###############################################################################
 
