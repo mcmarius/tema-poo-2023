@@ -9,6 +9,6 @@ std::string Chestie::f() const {
 
 std::ostream& operator<<(std::ostream& os, const Chestie& chestie) {
     os << chestie.f();
-    os << chestie.s << i;
+    os << chestie.s << chestie.i;
     return os;
 }
