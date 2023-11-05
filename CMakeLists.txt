@@ -94,7 +94,7 @@ add_executable(${PROJECT_NAME} main.cpp
         Fierastrau.cpp
         Fierastrau.h
         CanalDeComunicare.cpp
-        CanalDeComunicare.h Chestie.cpp)
+        CanalDeComunicare.h Chestie.cpp arp.cpp datalink.cpp ipv4.cpp macaddress.cpp network.cpp)
 
 ###############################################################################
 
