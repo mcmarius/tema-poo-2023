@@ -1,78 +1,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "Fierastrau.h"
+#include "Fir.h"
 
-class Fierastrau {
-    int zgomot{70};
-    // decibeli
-    double combustibil{50};
-public:
-    Fierastrau(int zgomot, double combustibil) : zgomot(zgomot), combustibil(combustibil) {}
-    Fierastrau() {
-        std::cout << "constr implicit fierastrau\n";
-    }
-    ~Fierastrau() {
-        std::cout << "destr fierastrau\n";
-    }
-    Fierastrau(const Fierastrau& other) : zgomot(other.zgomot), combustibil(other.combustibil) {
-        std::cout << "cc fierastrau\n";
-    }
-    Fierastrau& operator=(const Fierastrau& other) {
-        this->zgomot = other.zgomot;
-        this->combustibil = other.combustibil;
-        std::cout << "op= fierastrau\n";
-        return *this;
-    }
-    friend std::ostream& operator<<(std::ostream& out, const Fierastrau& fierastrau);
-};
-
-class Fir {
-private:
-    int lungime = 1;
-    std::string conector = "USB-C";
-    //enum t_conector { USB, RJ45,  } conector;
-public:
-    //Fir() = default;
-    Fir() { std::cout << "constr fără params fir\n"; }
-    Fir(int lungime_, const std::string& conector_) : lungime(lungime_),
-       conector(conector_) {
-        std::cout << "constr de inițializare fir\n";
-        //this->lungime = lungime_;
-        //this->conector = conector_;
-    }
-    Fir(const Fir& other) : lungime(other.lungime), conector(other.conector) {
-        //lungime = other.lungime;
-        //conector = other.conector;
-        std::cout << "constr de copiere fir\n";
-    }
-    Fir& operator=(const Fir& other) {
-        lungime = other.lungime;
-        conector = other.conector;
-        std::cout << "operator= fir\n";
-        return *this;
-    }
-    ~Fir() {
-        std::cout << "destructor fir" << lungime
-                  << " " << conector << "\n";
-    }
-
-    int get_lungime() const { return lungime; }
-
-    const std::string& getConector() const {
-        return conector;
-    }
-
-    void scurteaza(int x) {
-        if(x > 0)
-            lungime -= x;
-    }
-    //void set_lungime(int lungime_) { lungime = lungime_; }
-    //void set_conector(std::string conector_) { conector = conector_; }
-    friend std::ostream &operator<<(std::ostream &os, const Fir &fir) {
-        os << "lungime: " << fir.lungime << " conector: " << fir.conector;
-        return os;
-    }
-};
 
 class Echipament {
     //std::vector<Fir> fire;
@@ -162,12 +93,6 @@ class Duba {
 
 //void operator>>(std::istream& in, Fierastrau& fierastrau) {}
 
-std::ostream& operator<<(std::ostream& out, const Fierastrau& fierastrau) {
-    out << "Fierastrau: {"
-        << fierastrau.zgomot << " " << fierastrau.combustibil
-        << "}\n";
-    return out;
-}
 
 int main() {
     Fierastrau f1, f2{10, 20}, f3{100, 200};
