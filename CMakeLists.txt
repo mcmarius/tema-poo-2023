@@ -94,7 +94,7 @@ add_executable(${PROJECT_NAME} main.cpp
         Fierastrau.cpp
         Fierastrau.h
         Fir.cpp
-        Fir.h)
+        CanalDeComunicare.h)
 
 ###############################################################################
 

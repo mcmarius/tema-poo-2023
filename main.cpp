@@ -2,12 +2,12 @@
 #include <string>
 #include <vector>
 #include "Fierastrau.h"
-#include "Fir.h"
+#include "CanalDeComunicare.h"
 
 
 class Echipament {
-    //std::vector<Fir> fire;
-    Fir fir;
+    //std::vector<CanalDeComunicare> fire;
+    CanalDeComunicare fir;
     double masa;
 public:
     friend std::ostream &operator<<(std::ostream &os, const Echipament &echipament) {
@@ -15,9 +15,9 @@ public:
         return os;
     }
 
-    Echipament(const Fir &fir_, double masa_) : fir(fir_), masa(masa_) {}
+    Echipament(const CanalDeComunicare &fir_, double masa_) : fir(fir_), masa(masa_) {}
 
-    explicit Echipament(const Fir& fir_) : fir(fir_), masa(1.2) {
+    explicit Echipament(const CanalDeComunicare &fir_) : fir(fir_), masa(1.2) {
         //fir = fir_;
         //fir.operator=(fir_);
         //masa = 1.2;
@@ -112,10 +112,10 @@ int main() {
 //    std::cout << duba;
     // f(T2{1});
     std::cout << "înainte de fir1, fir2\n";
-    Fir fir1{2, "USB"}, fir2{3, "RJ45"};
+    CanalDeComunicare fir1{2, "USB"}, fir2{3, "RJ45"};
     std::cout << "înainte de fir3\n";
-    Fir fir3;
-    Fir fir4(30, "VGA");
+    CanalDeComunicare fir3;
+    CanalDeComunicare fir4(30, "VGA");
     //fir3.set_lungime(20);
     //fir3.set_conector("HDMI");
     std::cout << "înainte de echipamente\n";

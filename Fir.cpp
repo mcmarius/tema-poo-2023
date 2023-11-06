@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "Fir.h"
+#include "CanalDeComunicare.h"
 
 Fir::Fir() { std::cout << "constr fără params fir\n"; }
 
