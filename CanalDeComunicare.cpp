@@ -5,44 +5,44 @@
 #include <iostream>
 #include "CanalDeComunicare.h"
 
-Fir::Fir() { std::cout << "constr fără params fir\n"; }
+CanalDeComunicare::CanalDeComunicare() { std::cout << "constr fără params fir\n"; }
 
-Fir::Fir(int lungime_, const std::string &conector_) : lungime(lungime_), conector(conector_) {
+CanalDeComunicare::CanalDeComunicare(int lungime_, const std::string &conector_) {
     std::cout << "constr de inițializare fir\n";
     //this->lungime = lungime_;
     //this->conector = conector_;
 }
 
-Fir::Fir(const Fir &other) : lungime(other.lungime), conector(other.conector) {
+CanalDeComunicare::CanalDeComunicare(const CanalDeComunicare &other) {
     //lungime = other.lungime;
     //conector = other.conector;
     std::cout << "constr de copiere fir\n";
 }
 
-Fir &Fir::operator=(const Fir &other) {
+CanalDeComunicare &CanalDeComunicare::operator=(const CanalDeComunicare &other) {
     lungime = other.lungime;
     conector = other.conector;
     std::cout << "operator= fir\n";
     return *this;
 }
 
-Fir::~Fir() {
+CanalDeComunicare::~CanalDeComunicare() {
     std::cout << "destructor fir" << lungime
               << " " << conector << "\n";
 }
 
-int Fir::get_lungime() const { return lungime; }
+int CanalDeComunicare::get_lungime() const { return lungime; }
 
-const std::string &Fir::getConector() const {
+const std::string &CanalDeComunicare::getConector() const {
     return conector;
 }
 
-void Fir::scurteaza(int x) {
+void CanalDeComunicare::scurteaza(int x) {
     if (x > 0)
         lungime -= x;
 }
 
-std::ostream &operator<<(std::ostream &os, const Fir &fir) {
+std::ostream &operator<<(std::ostream &os, const CanalDeComunicare &fir) {
     os << "lungime: " << fir.lungime << " conector: " << fir.conector;
     return os;
 }

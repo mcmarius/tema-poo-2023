@@ -93,7 +93,7 @@ endfunction()
 add_executable(${PROJECT_NAME} main.cpp
         Fierastrau.cpp
         Fierastrau.h
-        Fir.cpp
+        CanalDeComunicare.cpp
         CanalDeComunicare.h)
 
 ###############################################################################

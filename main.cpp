@@ -95,6 +95,11 @@ class Duba {
 
 
 int main() {
+    CanalDeComunicare canal1;
+    Fir fir11;
+    Wireless wireless1;
+    wireless1.get_lungime();
+    // CanalDeComunicare &Ref = wireless1;  // nu merge cu moștenire private/protected
     Fierastrau f1, f2{10, 20}, f3{100, 200};
     Fierastrau f4{f2};
     std::cout << f4;
@@ -112,10 +117,10 @@ int main() {
 //    std::cout << duba;
     // f(T2{1});
     std::cout << "înainte de fir1, fir2\n";
-    CanalDeComunicare fir1{2, "USB"}, fir2{3, "RJ45"};
+    Fir fir1{2, "USB"}, fir2{3, "RJ45"};
     std::cout << "înainte de fir3\n";
-    CanalDeComunicare fir3;
-    CanalDeComunicare fir4(30, "VGA");
+    Fir fir3;
+    Fir fir4(30, "VGA");
     //fir3.set_lungime(20);
     //fir3.set_conector("HDMI");
     std::cout << "înainte de echipamente\n";
