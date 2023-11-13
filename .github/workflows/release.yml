@@ -112,12 +112,15 @@ jobs:
           cd %BUILD_DIR%/_deps/webview-src
           ./script/build.bat info clean deps
 
+      - name: Copy webview files
+        if: runner.os == 'Windows'
+        run: |
+          cp ${BUILD_DIR}/_deps/webview-src/build/external/libs/Microsoft.Web.WebView*/build/native/include/* ${BUILD_DIR}/_deps/webview-src
+
       - name: Build
         # Execute the build using N jobs (-jN)
         run: |
           pwd
-          cp ${BUILD_DIR}/_deps/webview-src/build/external/libs/Microsoft.Web.WebView*/build/native/include/* ${BUILD_DIR}/_deps/webview-src
-          ls -l ${BUILD_DIR}/_deps/webview-src
           cmake --build "${BUILD_DIR}" --config ${BUILD_TYPE} -j6
 
       - name: Install
