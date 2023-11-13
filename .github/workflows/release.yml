@@ -78,7 +78,7 @@ jobs:
       - name: Install Windows Dependencies
         if: runner.os == 'Windows'
         run: |
-          choco install ninja xxd webview2-runtime
+          choco install ninja xxd
 
       - name: Cache tools
         uses: actions/cache@v3
@@ -108,12 +108,16 @@ jobs:
       - name: Configure Webview2 (Windows)
         if: runner.os == 'Windows'
         shell: cmd
-        run: .${BUILD_DIR}/_deps/webview-src/script/build.bat info clean format deps
+        run: |
+          cd %BUILD_DIR%/_deps/webview-src
+          ./script/build.bat info clean deps
 
       - name: Build
         # Execute the build using N jobs (-jN)
         run: |
           pwd
+          cp ${BUILD_DIR}/_deps/webview-src/build/external/libs/Microsoft.Web.WebView*/build/native/include/* ${BUILD_DIR}/_deps/webview-src
+          ls -l ${BUILD_DIR}/_deps/webview-src
           cmake --build "${BUILD_DIR}" --config ${BUILD_TYPE} -j6
 
       - name: Install
