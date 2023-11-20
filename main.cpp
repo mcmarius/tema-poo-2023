@@ -1,6 +1,7 @@
 #include <list>
 #include <string>
 #include <iostream>
+#include <memory>
 
 class mijloc_de_transport {
     //std::string nume;
@@ -12,7 +13,7 @@ public:
         std::cout << "destr mijloc\n";
     }
 
-    virtual mijloc_de_transport *clone() const = 0;
+    virtual std::shared_ptr<mijloc_de_transport> clone() const = 0;
 
     friend std::ostream &operator<<(std::ostream &os, const mijloc_de_transport &tr) {
         os << "mijloc de transport: ";
@@ -44,8 +45,8 @@ public:
         std::cout << "destr autobuz\n";
     }
 
-    mijloc_de_transport *clone() const override {
-        return new autobuz(*this);
+    std::shared_ptr<mijloc_de_transport> clone() const override {
+        return std::make_shared<autobuz>(*this);
     }
     // virtual autobuz* clone() const = 0;
     // tip covariant
@@ -68,8 +69,8 @@ public:
         std::cout << "destr tramvai\n";
     }
 
-    mijloc_de_transport *clone() const override {
-        return new tramvai(*this);
+    std::shared_ptr<mijloc_de_transport> clone() const override {
+        return std::make_shared<tramvai>(*this);
     }
 };
 
@@ -78,7 +79,7 @@ public:
 
 class traseu {
     int id;
-    std::list<mijloc_de_transport *> mijloace;
+    std::list<std::shared_ptr<mijloc_de_transport>> mijloace;
 public:
     int pret_total() const {
         int suma = 0;
@@ -111,11 +112,6 @@ public:
             return *this;
         swap(*this, other);
         return *this;
-    }
-
-    ~traseu() {
-        for (auto *mijloc: mijloace)
-            delete mijloc;
     }
 
     friend std::ostream &operator<<(std::ostream &os, const traseu &tr) {
