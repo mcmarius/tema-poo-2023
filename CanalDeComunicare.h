@@ -9,7 +9,7 @@
 #include <string>
 
 class CanalDeComunicare {
-private:
+protected:
     int lungime = 1;
     std::string conector = "USB-C";
     //enum t_conector { USB, RJ45,  } conector;

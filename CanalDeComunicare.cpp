@@ -16,7 +16,7 @@ CanalDeComunicare::CanalDeComunicare(int lungime_, const std::string &conector_)
 
 CanalDeComunicare::CanalDeComunicare(const CanalDeComunicare &other) : lungime(other.lungime),
                                                                        conector(other.conector) {
-    //lungime = other.lungime;
+    // lungime = other.lungime;
     //conector = other.conector;
     std::cout << "constr de copiere fir\n";
 }
