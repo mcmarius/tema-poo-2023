@@ -1,147 +1,163 @@
-#include <iostream>
+#include <list>
 #include <string>
-#include <vector>
-#include "Fierastrau.h"
-#include "CanalDeComunicare.h"
+#include <iostream>
 
-
-class Echipament {
-    //std::vector<CanalDeComunicare> fire;
-    CanalDeComunicare fir;
-    double masa;
+class mijloc_de_transport {
+    //std::string nume;
+    virtual void print(std::ostream &) const {}
 public:
-    friend std::ostream &operator<<(std::ostream &os, const Echipament &echipament) {
-        os << "fir: " << echipament.fir << " masa: " << echipament.masa;
+    virtual int pret() const = 0;
+
+    virtual ~mijloc_de_transport() {
+        std::cout << "destr mijloc\n";
+    }
+
+    virtual mijloc_de_transport *clone() const = 0;
+
+    friend std::ostream &operator<<(std::ostream &os, const mijloc_de_transport &tr) {
+        os << "mijloc de transport: ";
+        tr.print(os);
+        os << "\n";
         return os;
     }
+};
 
-    Echipament(const CanalDeComunicare &fir_, double masa_) : fir(fir_), masa(masa_) {}
+int mijloc_de_transport::pret() const { return 42; }
 
-    explicit Echipament(const CanalDeComunicare &fir_) : fir(fir_), masa(1.2) {
-        //fir = fir_;
-        //fir.operator=(fir_);
-        //masa = 1.2;
+class autobuz : public mijloc_de_transport {
+    int nr_roti{6};
+    std::string tip_combustibil;
+    int nr_locuri{100};
+
+    void print(std::ostream &os) const override {
+        os << nr_roti << " " << tip_combustibil << " " << nr_locuri << "\n";
     }
-    Echipament(const Echipament& other) : fir(other.fir),
-                                        masa(other.masa) {
-        //fir = other.fir;
-        //masa = other.masa;
-        std::cout << "constructor de copiere echipament\n";
+public:
+    int pret() const override {
+        float multiplier_combustibil = 1;
+        if (tip_combustibil == "gpl")
+            multiplier_combustibil = 2.5;
+        return (nr_roti * 123 + nr_locuri * 321) * multiplier_combustibil;
     }
-    Echipament& operator=(const Echipament& other) {
-        fir = other.fir;
-        masa = other.masa;
-        std::cout << "operator= echipament\n";
+
+    ~autobuz() {
+        std::cout << "destr autobuz\n";
+    }
+
+    mijloc_de_transport *clone() const override {
+        return new autobuz(*this);
+    }
+    // virtual autobuz* clone() const = 0;
+    // tip covariant
+};
+
+class tramvai : public mijloc_de_transport {
+    int nr_usi{10};
+    int nr_burdufuri{2};
+
+    void print(std::ostream &os) const override {
+        os << nr_usi << " " << nr_burdufuri << "\n";
+    }
+
+public:
+    int pret() const override {
+        return 777 * (nr_usi / nr_burdufuri);
+    }
+
+    ~tramvai() {
+        std::cout << "destr tramvai\n";
+    }
+
+    mijloc_de_transport *clone() const override {
+        return new tramvai(*this);
+    }
+};
+
+//class metrou : public mijloc_de_transport {};
+
+
+class traseu {
+    int id;
+    std::list<mijloc_de_transport *> mijloace;
+public:
+    int pret_total() const {
+        int suma = 0;
+        for (const auto &mijloc: mijloace)
+            suma += mijloc->pret();
+        return suma;
+    }
+
+    void add(const mijloc_de_transport &mij) {
+        mijloace.push_back(mij.clone());
+    }
+
+    traseu() = default;
+
+    traseu(const traseu &other) {
+        for (const auto &mijloc: other.mijloace) {
+            // if pe tip sau multe dynamic_cast-uri din aceeași ierarhie ==> GREȘIT
+            mijloace.push_back(mijloc->clone());
+        }
+    }
+
+    friend void swap(traseu &t1, traseu &t2) {
+        using std::swap;  // enables ADL (argument depenedent lookup)
+        swap(t1.id, t2.id);
+        swap(t1.mijloace, t2.mijloace);
+    }
+
+    traseu &operator=(traseu other) {
+        if (this == &other)
+            return *this;
+        swap(*this, other);
         return *this;
     }
-    void monteaza() {
-        fir.scurteaza(2);
-        masa += 2.3;
-    }
-};
 
-class Laborator {
-    std::vector<Echipament> echipamente;
-    std::string cod_sala;
-public:
-    friend std::ostream &operator<<(std::ostream &os, const Laborator &laborator) {
-        os << "Echipamente:\n";
-        for(const auto& echipament : laborator.echipamente)
-            os << "\tEchipament: " << echipament << " cod_sala: " << laborator.cod_sala << "\n";
+    ~traseu() {
+        for (auto *mijloc: mijloace)
+            delete mijloc;
+    }
+
+    friend std::ostream &operator<<(std::ostream &os, const traseu &tr) {
+        os << "traseu:\n";
+        for (const auto &mijloc: tr.mijloace)
+            os << *mijloc;
         return os;
     }
-
-    Laborator(const std::vector<Echipament> &echipamente_, const std::string &codSala) : echipamente(echipamente_),
-                                                                                         cod_sala(codSala) {}
-
-    void setEchipamente(const std::vector<Echipament> &echipamente_) {
-        Laborator::echipamente = echipamente_;
-    }
-
-    void setCodSala(const std::string &codSala) {
-        cod_sala = codSala;
-    }
-
-//    const std::vector<Echipament> &getEchipamente() const {
-//        return echipamente;
-//    }
-
-    const std::string &getCodSala() const {
-        return cod_sala;
-    }
 };
 
-/*
-class T1 {
-  int x;
-  public:
-  T1(int x_) { x= x_; }
-};
-class T2 {
-  int x;
-  public:
-  explicit T2(int x_) { x= x_; }
-};
+void test1() {
+    mijloc_de_transport *tr;
+    autobuz a1;
+    tramvai t1;
+    std::cout << a1.pret() << " " << t1.pret() << "\n";
+    tr = &a1;
+    std::cout << tr->pret() << "\n";
+    tr = &t1;
+    std::cout << tr->pret() << "\n";
+    mijloc_de_transport &ref = a1;
+    std::cout << ref.pret() << "\n";
+    ref = t1;
+    std::cout << ref.pret() << "\n";
 
-void f(T1 t) {std::cout << "f t1\n";}
-void f(T2 t) {std::cout << "f t2\n";}
-*/
-
-class Duba {
-    Fierastrau f;
-};
-
-//void operator>>(std::istream& in, Fierastrau& fierastrau) {}
-
-
-int main() {
-    CanalDeComunicare canal1;
-    Fir fir11;
-    Wireless wireless1;
-    wireless1.get_lungime();
-    // CanalDeComunicare &Ref = wireless1;  // nu merge cu moștenire private/protected
-    Fierastrau f1, f2{10, 20}, f3{100, 200};
-    Fierastrau f4{f2};
-    std::cout << f4;
-    f2 = f3;
-    std::cout << f2;
-//    f1 = f2 = f3;
-//    f1.operator=(f2.operator=(f3));
-//    std::cout << f1 << f2;
-    // std::cout.operator<<(f1); // nu se poate
-//    operator<<(operator<<(std::cout, f1), f2);
-//    return 0;
-    Duba duba;
-    std::vector<Duba> dube;
-    dube.push_back(duba);
-//    std::cout << duba;
-    // f(T2{1});
-    std::cout << "înainte de fir1, fir2\n";
-    Fir fir1{2, "USB"}, fir2{3, "RJ45"};
-    std::cout << "înainte de fir3\n";
-    Fir fir3;
-    Fir fir4(30, "VGA");
-    //fir3.set_lungime(20);
-    //fir3.set_conector("HDMI");
-    std::cout << "înainte de echipamente\n";
-    Echipament e1{fir1};
-    std::cout << "după e1\n";
-    Echipament e2{e1}, e3 = e2;
-    e1.monteaza();
-    e3.monteaza();
-    Laborator l1{{e1, e2}, "119"};
-    std::cout << l1.getCodSala() << " " << "\n";
-    l1.setCodSala("119!");
-    l1.setEchipamente({e1, e2, e3});
-    std::cout << "-------------------------------------------\n\n";
-    std::cout << "-------------------------------------------\n\n";
-    std::cout << l1;
-    std::cout << "-------------------------------------------\n\n";
-    std::cout << "-------------------------------------------\n\n";
-    std::cout << fir1.get_lungime() << " " << fir1.getConector() << "\n";
-    std::cout << fir2.get_lungime() << "\n";
-    std::cout << fir3.get_lungime() << "\n";
-    std::cout << fir4.get_lungime() << "\n";
-    return 0;
 }
 
+void adauga(traseu &tr) {
+    autobuz a1;
+    tramvai t1;
+    tr.add(a1);
+    tr.add(t1);
+}
+
+int main() {
+    traseu traseu1;
+    adauga(traseu1);
+    std::cout << "total: " << traseu1.pret_total() << "\n";
+
+    traseu traseu2{traseu1};
+    traseu traseu3 = traseu1;
+    traseu2 = traseu3;
+    //traseu2.operator=(traseu3);
+    std::cout << traseu1;
+    return 0;
+}
