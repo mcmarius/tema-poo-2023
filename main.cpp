@@ -4,6 +4,7 @@
 #include <memory>
 #include <cmath>
 #include "mijloc_de_transport.h"
+#include "bicicleta.h"
 
 
 class autobuz : public mijloc_de_transport {
@@ -122,6 +123,7 @@ void adauga(traseu &tr) {
     tramvai t1;
     tr.add(a1);
     tr.add(t1);
+    tr.add(bicicleta{});
 }
 
 int main() {

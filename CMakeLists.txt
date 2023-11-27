@@ -98,7 +98,9 @@ add_executable(${PROJECT_NAME} main.cpp
         metrou.cpp
         metrou.h
         mijloc_de_transport.cpp
-        mijloc_de_transport.h)
+        mijloc_de_transport.h
+        bicicleta.cpp
+        bicicleta.h)
 
 ###############################################################################
 
