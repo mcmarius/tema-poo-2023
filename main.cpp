@@ -102,7 +102,7 @@ public:
     }
 };
 
-void test1() {
+[[maybe_unused]] void test1() {
     mijloc_de_transport *tr;
     autobuz a1;
     tramvai t1;
@@ -135,6 +135,6 @@ int main() {
     traseu traseu3 = traseu1;
     traseu2 = traseu3;
     //traseu2.operator=(traseu3);
-    std::cout << traseu1;
+    std::cout << traseu1 << traseu2;
     return 0;
 }
