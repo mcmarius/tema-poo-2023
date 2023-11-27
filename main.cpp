@@ -2,28 +2,9 @@
 #include <string>
 #include <iostream>
 #include <memory>
+#include <cmath>
+#include "mijloc_de_transport.h"
 
-class mijloc_de_transport {
-    //std::string nume;
-    virtual void print(std::ostream &) const {}
-public:
-    virtual int pret() const = 0;
-
-    virtual ~mijloc_de_transport() {
-        std::cout << "destr mijloc\n";
-    }
-
-    virtual std::shared_ptr<mijloc_de_transport> clone() const = 0;
-
-    friend std::ostream &operator<<(std::ostream &os, const mijloc_de_transport &tr) {
-        os << "mijloc de transport: ";
-        tr.print(os);
-        os << "\n";
-        return os;
-    }
-};
-
-int mijloc_de_transport::pret() const { return 42; }
 
 class autobuz : public mijloc_de_transport {
     int nr_roti{6};
@@ -41,7 +22,7 @@ public:
         return (nr_roti * 123 + nr_locuri * 321) * multiplier_combustibil;
     }
 
-    ~autobuz() {
+    ~autobuz() override {
         std::cout << "destr autobuz\n";
     }
 
@@ -65,7 +46,7 @@ public:
         return 777 * (nr_usi / nr_burdufuri);
     }
 
-    ~tramvai() {
+    ~tramvai() override {
         std::cout << "destr tramvai\n";
     }
 
@@ -74,11 +55,9 @@ public:
     }
 };
 
-//class metrou : public mijloc_de_transport {};
-
 
 class traseu {
-    int id;
+    int id{};
     std::list<std::shared_ptr<mijloc_de_transport>> mijloace;
 public:
     int pret_total() const {
