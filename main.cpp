@@ -102,7 +102,8 @@ public:
     }
 };
 
-[[maybe_unused]] void test1() {
+/*
+void test1() {
     mijloc_de_transport *tr;
     autobuz a1;
     tramvai t1;
@@ -117,6 +118,7 @@ public:
     std::cout << ref.pret() << "\n";
 
 }
+*/
 
 void adauga(traseu &tr) {
     autobuz a1;
